@@ -23,7 +23,7 @@ function HomePage({ data }) {
           <div style={{ display: "flex", flexDirection: "column" }}>
             {data.map((item) => {
               return (
-                <Link href={`/posts/${item.id}?name=${item.name}`}>
+                <Link href="/posts/[uid]" as={`/posts/${item.id}`}>
                   {item.name}
                 </Link>
               );
