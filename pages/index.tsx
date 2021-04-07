@@ -1,10 +1,12 @@
 import Link from "next/link";
 import Head from "next/head";
+import Button from "../component/button";
+import { firestore } from "../util/firebase";
 import { GetStaticProps } from "next";
 
 function HomePage({ data }) {
   return (
-    <>
+    <div>
       <Head>
         <title>Next Demo Project</title>
       </Head>
@@ -17,8 +19,9 @@ function HomePage({ data }) {
           <Link href="/test.html">
             <button>test</button>
           </Link>
-          <Link href="/starwars.html">
-            <button>starwars</button>
+          <Button index="starwars" path="/starwars.html" />
+          <Link href="/posts/serverpost">
+            <button>ServerSide Demo</button>
           </Link>
           <div style={{ display: "flex", flexDirection: "column" }}>
             {data.map((item) => {
@@ -31,13 +34,13 @@ function HomePage({ data }) {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const res = await fetch("https://jsonplaceholder.typicode.com/users");
-  const data = await res.json();
-  return { props: { data } };
+  const res = await firestore.collection("demoData").get();
+  const data = await res.docs.map((doc) => doc.data());
+  return { props: { data }, revalidate: 1 };
 };
 export default HomePage;
