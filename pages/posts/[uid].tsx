@@ -1,3 +1,5 @@
+import { GetStaticProps, GetStaticPaths } from "next";
+import { firestore } from "../../lib/firebase";
 //Dynamic route using useRouter way
 // import { useRouter } from "next/router";
 
@@ -15,9 +17,9 @@
 // };
 
 //Dynamic route using getStaticPaths
-export async function getStaticPaths() {
-  const res = await fetch("https://jsonplaceholder.typicode.com/users");
-  const data = await res.json();
+export const getStaticPaths: GetStaticPaths = async () => {
+  const res = await firestore.collection("demoData").get();
+  const data = await res.docs.map((doc) => doc.data());
   const idarray = data.map((item) => String(item.id));
   return {
     paths: idarray.map((uid) => ({
@@ -25,14 +27,15 @@ export async function getStaticPaths() {
     })),
     fallback: false,
   };
-}
-export async function getStaticProps(context) {
-  const { uid } = context.params;
-  const response = await fetch("https://jsonplaceholder.typicode.com/users");
-  const data = await response.json();
-  const content = data[uid - 1];
+};
+export const getStaticProps: GetStaticProps = async (context) => {
+  const { uid }: any = context.params;
+  const id = parseInt(uid) - 1;
+  const res = await firestore.collection("demoData").get();
+  const data = await res.docs.map((doc) => doc.data());
+  const content = data[id];
   return { props: { uid, content } };
-}
+};
 
 export default function Post({ uid, content }) {
   return (
