@@ -1,5 +1,9 @@
 import { GetStaticProps, GetStaticPaths } from "next";
+<<<<<<< HEAD
 import { firestore } from "../../lib/firebase";
+=======
+import { firestore } from "../../util/firebase";
+>>>>>>> 6f8b6466a9da5ec41504264594491179331c2e01
 //Dynamic route using useRouter way
 // import { useRouter } from "next/router";
 

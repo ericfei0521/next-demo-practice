@@ -1,7 +1,11 @@
 import Link from "next/link";
 import Head from "next/head";
 import Button from "../component/button";
+<<<<<<< HEAD
 import { firestore } from "../lib/firebase";
+=======
+import { firestore } from "../util/firebase";
+>>>>>>> 6f8b6466a9da5ec41504264594491179331c2e01
 import { GetStaticProps } from "next";
 
 function HomePage({ data }) {
@@ -22,9 +26,12 @@ function HomePage({ data }) {
           <Button index="starwars" path="/starwars.html" />
           <Link href="/posts/serverpost">
             <button>ServerSide Demo</button>
+<<<<<<< HEAD
           </Link>
           <Link href="/test?id=1" as="/test/1">
             <button>跳转到test页面</button>
+=======
+>>>>>>> 6f8b6466a9da5ec41504264594491179331c2e01
           </Link>
           <div style={{ display: "flex", flexDirection: "column" }}>
             {data.map((item) => {

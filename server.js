@@ -4,9 +4,15 @@ const Koa = require("koa");
 const Router = require("koa-router");
 const serveStatic = require("koa-static");
 // Initialize NextJs instance and expose request handler
+<<<<<<< HEAD
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
+=======
+const dev = process.env.NODE_ENV !== 'production'
+const app = next({ dev })
+const handle = app.getRequestHandler()
+>>>>>>> 6f8b6466a9da5ec41504264594491179331c2e01
 
 app.prepare().then(() => {
   const server = new Koa();
